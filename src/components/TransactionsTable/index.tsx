@@ -9,14 +9,16 @@ interface ITransaction {
   amount: number;
   type: string;
   category: string;
-  createdAt: Date;
+  createdAt: string;
 }
 
 export function TransactionsTable() {
   const [transactions, setTransactions] = useState<ITransaction[]>([]);
 
   useEffect(() => {
-    api.get('/transactions').then(({ data }) => setTransactions(data));
+    api
+      .get('/transactions')
+      .then(({ data }) => setTransactions(data.transactions));
   }, []);
 
   return (
@@ -34,7 +36,7 @@ export function TransactionsTable() {
         <tbody>
           {transactions &&
             transactions.map(transaction => (
-              <tr>
+              <tr key={transaction.id}>
                 <td>{transaction.title}</td>
                 <td className={transaction.type}>R$ {transaction.amount}</td>
                 <td>{transaction.category}</td>
