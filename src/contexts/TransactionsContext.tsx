@@ -8,6 +8,17 @@ import {
 
 import { api } from '../services/api';
 
+interface ITransaction {
+  id: number;
+  title: string;
+  amount: number;
+  formatted_amount: string;
+  type: string;
+  category: string;
+  createdAt: string;
+  formatted_date: string;
+}
+
 type TransactionInput = Pick<
   ITransaction,
   'title' | 'amount' | 'type' | 'category'
@@ -18,17 +29,6 @@ interface ITransactionsContext {
 }
 interface ITransactionsProviderProps {
   children?: React.ReactNode;
-}
-
-interface ITransaction {
-  id: number;
-  title: string;
-  amount: number;
-  formatted_amount: string;
-  type: string;
-  category: string;
-  createdAt: string;
-  formatted_date: string;
 }
 
 const TransactionsContext = createContext<ITransactionsContext>(
